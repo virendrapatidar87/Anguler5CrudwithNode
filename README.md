@@ -1,3 +1,26 @@
+# Initial Setup
+
+1. Install Node 8.11.3 for linux 64 bit binary
+2. Install Mongo linux lagecy
+3. Set environement variable in .bash_profile
+   export NODE_ENV=$HOME/Softwares/node-v8.11.3-linux-x64/bin
+   export NPM_HOME=$HOME/Softwares/node-v8.11.3-linux-x64/lib/node_modules/npm/bin
+   PATH=$NODE_ENV:$NPM_HOME:$PATH
+
+ reload bash profile
+ > source .bash_profile
+
+ 4. Install Mongo db and create the data/db folder at the root location and provide the 777 permission.
+
+ 5. Go to Mongo software location inside bin and run the below command
+     ./mongod
+
+6. Proxy seeting for network
+      npm config set http-proxy 'url'
+
+6. Set the registery
+      npm config set registry http://registry.npmjs.org/
+      
 # AngularCRUD
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
