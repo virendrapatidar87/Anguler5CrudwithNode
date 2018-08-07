@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatDialog, MatTableDataSource,MatPaginator} from '@angular/material';
 import {UserFormComponent} from '../user-form/user-form.component'
 import { PersonService } from '../../person.service';
 import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.component';
@@ -11,21 +11,52 @@ import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.
 })
 
 export class UserListComponent implements OnInit {
-
-  constructor(private newService: PersonService,public dialog: MatDialog ) {}
-
   Repdata;
+  getData;
   valbutton = "Save";
   id : string;
-  
   displayedColumns: string[] = ['position', 'name', 'note', 'operations'];
-  ngOnInit() {
-    this.newService.GetUser().subscribe(data => this.Repdata = new MatTableDataSource(data))
+
+  // @ViewChild(MatPaginator) paginator: MatPaginator;  
+
+  constructor(private newService: PersonService,public dialog: MatDialog ) {
+    
+  }
+  private paginator: MatPaginator;
+  // private sort: MatSort;
+
+  /* @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  } */
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    // this.setDataSourceAttributes();
+  }
+
+  /* setDataSourceAttributes() {
+    this.Repdata.paginator = this.paginator;
+     this.dataSource.sort = this.sort; 
+
+    if (this.paginator  && this.sort ) {
+      this.applyFilter('');
+    }
+  } */
+  
+   ngOnInit() {
+    this.newService.GetUser().subscribe(data => { this.Repdata = new MatTableDataSource(data);this.Repdata.paginator = this.paginator;},error => 'error')
+    
     console.log("=======================================Person======================================");
   }
+  
+
   applyFilter(filterValue: string) {
     console.log("=======================================Person======================================" + filterValue);
     this.Repdata.filter = filterValue.trim().toLowerCase();
+    if (this.Repdata.paginator) {
+      this.Repdata.paginator.firstPage();
+    }
     console.log("=======================================Person======================================" + this.Repdata);
   }
   edit = function(id) {
