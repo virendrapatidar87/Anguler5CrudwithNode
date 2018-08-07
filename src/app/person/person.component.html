@@ -1,0 +1,72 @@
+<div class="form-responsive">
+  
+<form #userForm="ngForm"   (ngSubmit)="onSave(userForm.value)" novalidate>  
+  <!-- <p>Is "myForm" valid? {{userForm.valid}}</p>  --> 
+  <div class="table-responsive">
+  <table  class="table table-condensed" >  
+<tr>  
+<td>Name</td>  
+<td>   
+    <input name="id" type="hidden"     [(ngModel)]="id" />  
+   
+        <input type="text" name="name"  required  [(ngModel)]="name" />
+   
+ </td>  
+</tr>  
+  
+<tr>  
+    <td>Note</td>  
+    <td>    <input name="note" required  type="text"   [(ngModel)]="note" /></td>  
+    </tr>  
+    <tr>  
+        <td colspan="2">  
+    <input mat-raised-button type="submit" value="{{valbutton}}" />  
+    </td>  
+    </tr>  
+ </table> 
+</div> 
+</form>  
+
+</div>
+<div class="table-responsive">
+<table mat-table [dataSource]="Repdata" class="table table-hover mat-elevation-z8">  
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Position </th>
+        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef> Note </th>
+        <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+      </ng-container>
+      <ng-container matColumnDef="operations">
+          <th mat-header-cell *matHeaderCellDef> Operations </th>
+          <td mat-cell *matCellDef="let element"><a mat-button (click)="edit(element)" ><mat-icon md-font-set="material-icons">edit</mat-icon></a>
+              <a mat-button (click)="delete(element._id)" style="color:blueviolet"><mat-icon md-font-set="material-icons">delete</mat-icon> </a>  </td>
+        </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ <!--  <tr>  
+    <td>Id</td>  
+    <td>Name</td>  
+    <td>Note</td>  
+    <td>Edit</td>  
+    <td>Delete</td>  
+  </tr>  
+  <tr *ngFor="let kk of Repdata;let ind = index">  
+       
+    <td>{{ind + 1}}</td>  
+    <td>{{kk.name}}</td>  
+    <td>{{kk.note}}</td>  
+    <td><a (click)="edit(kk)" style="color:blueviolet">Edit</a></td>  
+    <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a>  </td>  
+  </tr>  --> 
+</table>  
+</div>

@@ -1,0 +1,21 @@
+.table {
+    width: 75%;
+    margin: auto;
+}
+
+.table td {
+    vertical-align: middle;
+}
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .mat-button{
+    min-width: 35px;
+    line-height: 35px;
+    border-radius: 15px;
+    padding: 0px 0px;
+  }

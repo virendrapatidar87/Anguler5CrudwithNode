@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>Save Note</h1>
+<!-- <div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div> -->
+
+<div mat-dialog-content class="form-responsive">
+    <!-- <form #userForm="ngForm"   (ngSubmit)="onSave(userForm.value)" novalidate>
+    
+        <input name="id" type="hidden"     [(ngModel)]="id"  /> 
+        <input type="text" name="name"  class="form-control" required  [(ngModel)]="name" /><br>
+        <input name="note" class="form-control" required  type="text"   [(ngModel)]="note" />
+      </form>  -->
+
+      <form [formGroup]="userDetailsForm" (ngSubmit)="onSave(userDetailsForm.value)">
+        
+        <input formControlName="id" type="hidden" /> 
+      
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Full Name" type="text" formControlName="name">
+         <!--  <mat-error *ngFor="let validation of validation_messages.name">
+            <mat-error class="error-message" *ngIf="userDetailsForm.get('name').hasError(validation.type) && (userDetailsForm.get('name').dirty || userDetailsForm.get('name').touched)">{{validation.message}}</mat-error>
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Note" formControlName="note"></textarea>
+         <!--  <mat-error *ngFor="let validation of validation_messages.note">
+            <mat-error class="error-message" *ngIf="userDetailsForm.get('note').hasError(validation.type) && (userDetailsForm.get('note').dirty || userDetailsForm.get('note').touched)">{{validation.message}}</mat-error>
+          </mat-error> -->
+        </mat-form-field>
+      <br/>
+      <table><tr> <td align="center"> <button class="submit-btn" mat-button type="submit" [disabled]="!userDetailsForm.valid" cdkFocusInitial>{{valbutton}}</button>
+      <button mat-button (click)="onNoClick()" type="button">Cancel</button></td></tr></table>
+    </form>
+    
+</div>
+<!-- <div mat-dialog-actions>
+    <button mat-button (click)="onSave(userForm.value)" cdkFocusInitial >{{valbutton}}</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    
+  </div> -->
+
+  <!-- 
+    <form #userForm="ngForm"   (ngSubmit)="onSave(userForm.value)" novalidate>  
+      
+      <div class="table-responsive">
+      <table  class="table table-condensed" >  
+    <tr>  
+    <td>Name</td>  
+    <td>   
+        <input name="id" type="hidden"     [(ngModel)]="id" />  
+       
+            <input type="text" name="name"  required  [(ngModel)]="name" />
+       
+     </td>  
+    </tr>  
+      
+    <tr>  
+        <td>Note</td>  
+        <td>    <input name="note" required  type="text"   [(ngModel)]="note" /></td>  
+        </tr>  
+        <tr>  
+            <td colspan="2">  
+        <input mat-raised-button type="submit" value="{{valbutton}}" />  
+        </td>  
+        </tr>  
+     </table> 
+    </div> 
+    </form>  
+    
+    </div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</div> -->

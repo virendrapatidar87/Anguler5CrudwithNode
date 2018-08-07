@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <p>Are You sure to perform <label style="color: midnightblue; font-style: italic; text-transform: capitalize;">{{dialogOp}}</label> Operation ?</p>
+   <div mat-dialog-actions>
+    <button mat-button (click)="onOk()"  >Yes</button>
+    <button mat-button (click)="onCancelClick()" cdkFocusInitial>No</button>
+    
+  </div>
+  <br/>
+
+</div>

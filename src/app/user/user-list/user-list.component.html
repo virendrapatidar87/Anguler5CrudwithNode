@@ -1,0 +1,63 @@
+
+<div>
+<mat-toolbar color="gray">
+
+    <mat-toolbar-row>
+        <!-- <span>first line</span> -->
+        <span class="example-spacer" >
+            <nav>
+                <!-- <a mat-raised-button routerLink="/person" routerLinkActive="active">Person</a> -->
+                <button mat-raised-button (click)="openDialog()">Add New Story</button>
+              </nav>
+        </span>
+        <!-- <mat-icon md-font-set="material-icons">favorite</mat-icon>
+        <mat-icon md-font-set="material-icons">delete</mat-icon> -->
+      </mat-toolbar-row>
+
+</mat-toolbar> 
+</div>
+  <div class="table-responsive">
+      <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      <table mat-table [dataSource]="Repdata" class="table table-hover mat-elevation-z8">  
+          <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> Position </th>
+              <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="note">
+              <th mat-header-cell *matHeaderCellDef> Note </th>
+              <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+            </ng-container>
+            <ng-container matColumnDef="operations">
+                <th mat-header-cell *matHeaderCellDef> Operations </th>
+                <td mat-cell *matCellDef="let kk"><a mat-button (click)="edit(kk._id)" ><mat-icon md-font-set="material-icons">edit</mat-icon></a>
+                    <a mat-button (click)="delete(kk._id)" style="color:blueviolet"><mat-icon md-font-set="material-icons">delete</mat-icon> </a>  </td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       <!--  <tr>  
+          <td>Id</td>  
+          <td>Name</td>  
+          <td>Note</td>  
+          <td>Edit</td>  
+          <td>Delete</td>  
+        </tr>  
+        <tr *ngFor="let kk of Repdata;let ind = index">  
+             
+          <td>{{ind + 1}}</td>  
+          <td>{{kk.name}}</td>  
+          <td>{{kk.note}}</td>  
+          <td><a (click)="edit(kk)" style="color:blueviolet">Edit</a></td>  
+          <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a>  </td>  
+        </tr>  --> 
+      </table>  
+      </div>

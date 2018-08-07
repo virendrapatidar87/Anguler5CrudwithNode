@@ -1,0 +1,64 @@
+<!-- <form #userForm="ngForm"   (ngSubmit)="onSave(userForm.value)" novalidate>  
+  <p>Is "myForm" valid? {{userForm.valid}}</p>  
+ <table border='1'>  
+<tr>  
+<td>name</td>  
+<td>   
+    <input name="id" type="hidden"     [(ngModel)]="id" />  
+     <input name="name" type="text"  required  [(ngModel)]="name" />  
+  
+ </td>  
+</tr>  
+  
+<tr>  
+    <td>Note</td>  
+    <td>    <input name="note" required  type="text"   [(ngModel)]="note" /></td>  
+    </tr>  
+    <tr>  
+        <td colspan="2">  
+    <input type="submit" value="{{valbutton}}" />  
+    </td>  
+    </tr>  
+ </table>  
+</form>   
+  
+<table border='1'>  
+  
+  <tr>  
+    <td>Id</td>  
+    <td>Name</td>  
+    <td>Note</td>  
+    <td>Edit</td>  
+    <td>Delete</td>  
+  </tr>  
+  <tr *ngFor="let kk of Repdata;let ind = index">  
+       
+    <td>{{ind + 1}}</td>  
+    <td>{{kk.name}}</td>  
+    <td>{{kk.note}}</td>  
+    <td><a (click)="edit(kk)" style="color:blueviolet">Edit</a></td>  
+    <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a>  </td>  
+  </tr>  
+</table> -->  
+
+<mat-toolbar color="gray">
+
+    <mat-toolbar-row>
+        <!-- <span>first line</span> -->
+        <span class="example-spacer" >
+            <nav>
+                <!-- <a mat-raised-button routerLink="/person" routerLinkActive="active">Person</a> -->
+                <a mat-raised-button routerLink="/users" routerLinkActive="active">Users</a>  
+              </nav>
+        </span>
+        <!-- <mat-icon md-font-set="material-icons">favorite</mat-icon>
+        <mat-icon md-font-set="material-icons">delete</mat-icon> -->
+      </mat-toolbar-row>
+
+</mat-toolbar> 
+  <!-- <nav>-->
+    <!-- <a mat-raised-button routerLink="/person" routerLinkActive="active">Person</a> -->
+    <!-- <a mat-raised-button routerLink="/users" routerLinkActive="active">Users</a>  -->
+  <!--</nav> --> 
+
+  <router-outlet></router-outlet> 
