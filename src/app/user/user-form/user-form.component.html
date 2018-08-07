@@ -19,13 +19,15 @@
         <input formControlName="id" type="hidden" /> 
       
         <mat-form-field class="full-width">
-          <input matInput placeholder="Full Name" type="text" formControlName="name">
+          <input matInput  placeholder="Full Name" type="text" formControlName="name">
          <!--  <mat-error *ngFor="let validation of validation_messages.name">
             <mat-error class="error-message" *ngIf="userDetailsForm.get('name').hasError(validation.type) && (userDetailsForm.get('name').dirty || userDetailsForm.get('name').touched)">{{validation.message}}</mat-error>
           </mat-error> -->
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Note" formControlName="note"></textarea>
+          <textarea matInput  #noteFieldMsg maxlength="150" placeholder="Note" formControlName="note"></textarea>
+          <mat-hint align="start"><strong>Please insert note</strong> </mat-hint>
+         <mat-hint align="end">{{noteFieldMsg.value.length}} / 150</mat-hint>
          <!--  <mat-error *ngFor="let validation of validation_messages.note">
             <mat-error class="error-message" *ngIf="userDetailsForm.get('note').hasError(validation.type) && (userDetailsForm.get('note').dirty || userDetailsForm.get('note').touched)">{{validation.message}}</mat-error>
           </mat-error> -->
