@@ -1,18 +1,16 @@
-const user = require('../../../models/user');
-
-class PersonController {
+const note = require('../../../models/note'),
+verifytoken = require('../../../config/verifytoken');
+class NoteController {
 
 	constructor(router) {
-	  router.get('/getUser', this.getPerson.bind(this));
-    router.post('/SaveUser', this.saveUser.bind(this));
-    router.post('/deleteUser', this.deleteUser.bind(this));
-    router.get('/getUser/:id', this.getUserById.bind(this));
+	  router.get('/getNote', verifytoken,this.getNote.bind(this));
+    router.post('/SaveNote', verifytoken,this.saveNote.bind(this));
+    router.post('/deleteNote',verifytoken, this.deleteNote.bind(this));
+    router.get('/getNote/:id',verifytoken, this.getNoteById.bind(this));
   }
 
-  
-  
-  saveUser(req, res) {
-    var mod = new user(req.body);
+  saveNote(req, res, next) {
+    var mod = new note(req.body);
     if (req.body.mode == "Save") {
       mod.save(function(err, data) {
         if (err) {
@@ -24,7 +22,7 @@ class PersonController {
         }
       });
     } else {
-    	user.findByIdAndUpdate(req.body.id, {
+    	note.findByIdAndUpdate(req.body.id, {
         name: req.body.name,
         note: req.body.note
       },
@@ -40,9 +38,9 @@ class PersonController {
     }
   }
 
-  deleteUser(req, res) {
-	 console.log("Delete User ----------------------------")
-	  user.remove({
+  deleteNote(req, res, next) {
+	 console.log("Delete Note ----------------------------")
+	  note.remove({
       _id: req.body.id
     }, function(err) {
       if (err) {
@@ -54,9 +52,9 @@ class PersonController {
       }
     });
   }
-  getUserById(req,res){
+  getNoteById(req,res, next){
     const id = req.params.id;
-    user.findById(id,function(err,data){
+    note.findById(id,function(err,data){
       if (err) {
         res.send(err);
       } else {
@@ -66,9 +64,9 @@ class PersonController {
 
   }
 
-  getPerson(req, res) {
+  getNote(req, res, next) {
 	  console.log("data --------------------------------")
-    user.find({}, function(err, data) {
+    note.find({}, function(err, data) {
       if (err) {
         res.send(err);
       } else {
@@ -80,4 +78,4 @@ class PersonController {
   }
 }
 
-module.exports = PersonController;
+module.exports = NoteController;

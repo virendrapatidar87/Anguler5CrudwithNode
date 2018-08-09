@@ -1,12 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { HttpModule } from '@angular/http';  
 import { FormsModule } from '@angular/forms';  
-  
+ 
 import { AppComponent } from './app.component';  
   
-import {CommonService} from './common.service';
 import { PersonComponent } from './person/person.component';
 import { PersonService } from './person.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,9 +20,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { CommonDialogComponent } from './common/common-dialog/common-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './login/registration/registration.component';
+import { LoginService } from './login/login.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpInterceptor } from './my-http-interceptor';
+
 
 const appRoutes: Routes = [
-  { path: 'person', component: PersonComponent },{path: 'users', component: UserListComponent}];
+  { path: 'person', component: PersonComponent },{path: 'users', component: UserListComponent},{path: 'login', component: LoginComponent}];
 
 @NgModule({
   declarations: [
@@ -34,15 +37,23 @@ const appRoutes: Routes = [
     UserFormComponent,
     UserListComponent,
     CommonDialogComponent,
+    LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
-    BrowserModule, HttpModule, CommonModule ,BrowserAnimationsModule, FormsModule ,ReactiveFormsModule, RouterModule.forRoot(
+    BrowserModule, HttpClientModule, CommonModule ,BrowserAnimationsModule, FormsModule ,ReactiveFormsModule, RouterModule.forRoot(
+      
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
   ],
-  entryComponents: [PersonComponent,UserFormComponent,UserListComponent,CommonDialogComponent],
-  providers: [CommonService,PersonService],
+  entryComponents: [PersonComponent,UserFormComponent,UserListComponent,CommonDialogComponent,RegistrationComponent,LoginComponent],
+  providers: [{ 
+    provide: HTTP_INTERCEPTORS, 
+    useClass: MyHttpInterceptor, 
+    multi: true 
+} ,PersonService,LoginService,],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

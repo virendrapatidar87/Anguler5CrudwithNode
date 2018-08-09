@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormsModule, } from '@angular/forms';
-import {CommonService} from './common.service';
+import {PersonService} from './person.service';
 
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +11,14 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 export class AppComponent {
 
 
-  constructor(private newService: CommonService, ) {}
+  constructor(private newService: PersonService, ) {}
   Repdata;
   valbutton = "Save";
 
   
 
   ngOnInit() {
-    this.newService.GetUser().subscribe(data => this.Repdata = data)
+    //this.newService.GetUser().subscribe(data => this.Repdata = data)
   }
 
   onSave = function(user, isValid: boolean) {

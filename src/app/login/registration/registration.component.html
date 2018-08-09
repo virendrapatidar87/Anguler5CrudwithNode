@@ -1,0 +1,36 @@
+<div mat-dialog-content class="form-responsive">
+  <form [formGroup]="registrationForm" (ngSubmit)="onRegister(registrationForm.value)">
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Full Name" type="text" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="email" type="email" formControlName="email">
+
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="username" type="text" formControlName="username">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Please confirm your password" formControlName="repeatpassword" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <br/>
+    <table>
+      <tr>
+        <td align="center">
+          <button class="submit-btn" mat-button type="submit" [disabled]="!registrationForm.valid" cdkFocusInitial>Register</button>
+          <button mat-button (click)="onNoClick()" type="button">Cancel</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</div>
