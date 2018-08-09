@@ -25,6 +25,8 @@ import { RegistrationComponent } from './login/registration/registration.compone
 import { LoginService } from './login/login.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './my-http-interceptor';
+import { AppHeaderComponent } from './app-header/app-header.component';
+
 
 
 const appRoutes: Routes = [
@@ -39,6 +41,8 @@ const appRoutes: Routes = [
     CommonDialogComponent,
     LoginComponent,
     RegistrationComponent,
+    AppHeaderComponent,
+    
   ],
   imports: [
     BrowserModule, HttpClientModule, CommonModule ,BrowserAnimationsModule, FormsModule ,ReactiveFormsModule, RouterModule.forRoot(

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from './login.service';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { RegistrationComponent } from './registration/registration.component';
@@ -11,10 +11,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
   loginForm;
   constructor(private newService: LoginService,public dialog: MatDialog,private route: ActivatedRoute, private router: Router,) { }
 
   ngOnInit() {
+
+    if(localStorage.getItem('currentUser')){
+      this.router.navigate(['/users']);
+    }
     this.loginForm = new FormGroup({
       
       'username': new FormControl('',

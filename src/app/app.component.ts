@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormsModule, } from '@angular/forms';
 import {PersonService} from './person.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,46 +11,20 @@ import {PersonService} from './person.service';
 })
 export class AppComponent {
 
-
-  constructor(private newService: PersonService, ) {}
-  Repdata;
-  valbutton = "Save";
+  
+  constructor(private router: Router) {}
+  
 
   
 
   ngOnInit() {
-    //this.newService.GetUser().subscribe(data => this.Repdata = data)
-  }
-
-  onSave = function(user, isValid: boolean) {
-    user.mode = this.valbutton;
-    this.newService.saveUser(user)
-      .subscribe(data => {
-        // alert(data.data);
-
-        this.ngOnInit();
-      }
-      , error => this.errorMessage = error);
-    this.name = "";
-    this.note = "";
-    this.valbutton = "Save";
+        
+    if(localStorage.getItem('currentUser')== null){
+      
+      this.router.navigate(['/login']);
+    }
+  
 
   }
-  edit = function(kk) {
-    this.id = kk._id;
-    this.name = kk.name;
-    this.note = kk.note;
-    this.valbutton = "Update";
-  }
-
-  delete = function(id) {
-    this.newService.deleteUser(id)
-      .subscribe(data => {
-      //  alert(data.data);
-        this.ngOnInit();
-      },
-      error => this.errorMessage = error
-    )
-  }
-
+  
 } 

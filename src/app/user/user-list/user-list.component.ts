@@ -3,6 +3,7 @@ import {MatDialog, MatTableDataSource,MatPaginator} from '@angular/material';
 import {UserFormComponent} from '../user-form/user-form.component'
 import { PersonService } from '../../person.service';
 import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +20,7 @@ export class UserListComponent implements OnInit {
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;  
 
-  constructor(private newService: PersonService,public dialog: MatDialog ) {
+  constructor(private newService: PersonService,public dialog: MatDialog, private router: Router ) {
     
   }
   private paginator: MatPaginator;
@@ -45,9 +46,15 @@ export class UserListComponent implements OnInit {
   } */
   
    ngOnInit() {
+    if(localStorage.getItem('currentUser')){
+      
+    
     this.newService.GetUser().subscribe(data => { this.Repdata = new MatTableDataSource(data);this.Repdata.paginator = this.paginator;},error => 'error')
     
     console.log("=======================================Person======================================");
+    }else{
+      this.router.navigate(['/login']);
+    }
   }
   
 

@@ -1,0 +1,24 @@
+<mat-toolbar color="gray" *ngIf="!isUserLoggedIn">
+
+  <mat-toolbar-row>
+    <span class="example-spacer" >
+      Test Application 
+    </span>
+  </mat-toolbar-row>
+
+</mat-toolbar> 
+<mat-toolbar color="gray" *ngIf="isUserLoggedIn">
+
+    <mat-toolbar-row>
+      <span class="example-spacer" >
+        Test Application 
+      </span>
+        <span class="example-spacer" >
+            <nav>
+                 <a mat-raised-button (click)="logout()" >Logout</a>
+              </nav>
+        </span>
+        
+      </mat-toolbar-row>
+
+</mat-toolbar> 
