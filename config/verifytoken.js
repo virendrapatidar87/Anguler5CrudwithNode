@@ -14,7 +14,8 @@ const jwt = require('jsonwebtoken'),
   
       // if everything good, save to request for use in other routes
       req.userId = decoded.id;
-      console.log(decoded.username);
+      req.userRole = decoded.userrole;
+      console.log(decoded.username + '  '+decoded.userrole);
       next();
     });
   }

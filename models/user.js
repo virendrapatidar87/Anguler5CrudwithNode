@@ -9,7 +9,8 @@ const mongoose = require('mongoose'),
 const userSchema = mongoose.Schema({      
     username: { type: String   },       
     email: { type: String   },
-    password: { type: String   }   
+    password: { type: String   },
+    userRole: { type: String   }    
    },{ versionKey: false });
 
 // methods ======================
@@ -19,7 +20,7 @@ return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 userSchema.methods.genrateToken = function(user){
-    var token = jwt.sign({ id: user._id, username : user.username }, config.secret, {
+    var token = jwt.sign({ id: user._id, username : user.username, userrole : user.userRole  }, config.secret, {
         expiresIn: 82000 // expires in 24 hours
       });
 return token;
