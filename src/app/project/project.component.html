@@ -22,7 +22,7 @@
   <table mat-table [dataSource]="projectList" class="table table-hover mat-elevation-z8">
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> Position </th>
-      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+      <td mat-cell *matCellDef="let element; let i = index;"> {{i}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -44,6 +44,9 @@
         </a>
         <a mat-button (click)="delete(kk._id)" style="color:blueviolet">
           <mat-icon md-font-set="material-icons">delete</mat-icon>
+        </a>
+        <a [routerLink]="['/category/', kk._id]">
+          <mat-icon md-font-set="material-icons">View category</mat-icon>
         </a>
       </td>
     </ng-container>

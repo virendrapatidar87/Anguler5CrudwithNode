@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from './category.service';
 import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.component';
 
@@ -11,13 +11,13 @@ import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  proId : string ; 
+  pId : string ; 
   categoryList;
   getData;
   //valbutton = "Save";
   id : string;
   displayedColumns: string[] = ['position', 'name','projectName', 'operations'];
-  constructor(private newService: CategoryService,public dialog: MatDialog , private router: Router) { }
+  constructor(private newService: CategoryService,public dialog: MatDialog , private router: Router,private route: ActivatedRoute) { }
 
   private paginator: MatPaginator;
   
@@ -26,16 +26,19 @@ export class CategoryComponent implements OnInit {
     // this.setDataSourceAttributes();
   }
   ngOnInit() {
-    if(localStorage.getItem('currentUser')){
+    this.route.params.subscribe(params => {
+      this.pId = params['pId']; // (+) converts string 'id' to a number
+      if(localStorage.getItem('currentUser')){
       
-    
-      this.newService.GetList(this.proId).subscribe(data => { this.categoryList = new MatTableDataSource(data);this.categoryList.paginator = this.paginator;},error => 'error')
-   
-     // console.log("=======================================Person======================================");
-      }else{
-        this.router.navigate(['/login']);
-      }
-  }
+        this.newService.GetList(this.pId).subscribe(data => { this.categoryList = new MatTableDataSource(data);this.categoryList.paginator = this.paginator;},error => 'error')
+     
+       // console.log("=======================================Person======================================");
+        }else{
+          this.router.navigate(['/login']);
+        }
+      // In a real app: dispatch action to load the details here.
+   });
+}
 
   applyFilter(filterValue: string) {
     //console.log("=======================================Person======================================" + filterValue);

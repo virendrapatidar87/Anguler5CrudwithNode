@@ -8,7 +8,6 @@
         <input formControlName="id" type="hidden" /> 
         <mat-form-field>
           <mat-select placeholder="Project" [(value)] = "projectId"  formControlName="projectId">
-            <mat-option>None</mat-option>
             <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
           </mat-select>
 

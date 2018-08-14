@@ -37,7 +37,7 @@ import { CategoryService } from './project/category/category.service';
 
 const appRoutes: Routes = [
   { path: 'person', component: PersonComponent }, { path: 'users', component: UserListComponent }, { path: 'login', component: LoginComponent },
-   { path: 'project', component: ProjectComponent }, { path: 'category', component: CategoryComponent }];
+   { path: 'project', component: ProjectComponent }, { path: 'category', component: CategoryComponent }, { path: 'category/:pId', component: CategoryComponent }];
 
 
 @NgModule({

@@ -75,7 +75,7 @@ export class CategoryFormComponent implements OnInit {
       }
       , error => this.errorMessage = error);
     }else{
-      this.newService.updateData(formData)
+      this.categoryService.updateData(formData)
       .subscribe(data => {
         // alert(data.data);
 
