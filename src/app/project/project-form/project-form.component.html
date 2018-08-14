@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Save Note</h1>
+
+
+<div mat-dialog-content class="form-responsive">
+    
+      <form [formGroup]="projectDetailsForm" (ngSubmit)="onSave(projectDetailsForm.value)">
+        
+        <input formControlName="id" type="hidden" /> 
+      
+        <mat-form-field class="full-width">
+          <input matInput  placeholder="Name Of Project" type="text" formControlName="name">
+          <mat-hint align="start"><strong>Please insert project name like Front End,Backend</strong> </mat-hint>
+        </mat-form-field>
+      <br/>
+      <table><tr> <td align="center"> <button class="submit-btn" mat-button type="submit" [disabled]="!projectDetailsForm.valid" cdkFocusInitial>{{valbutton}}</button>
+      <button mat-button (click)="onNoClick()" type="button">Cancel</button></td></tr></table>
+    </form>
+</div>

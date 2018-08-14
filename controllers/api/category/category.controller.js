@@ -7,6 +7,7 @@ class CategoryController {
 
     constructor(router) {
         router.get('/:projectId', verifytoken, this.getList.bind(this));
+        router.get('/', verifytoken, this.getList.bind(this));
         router.post('/', verifytoken, this.save.bind(this));
         router.put('/', verifytoken, this.update.bind(this));
         router.get('/by_id/:id', verifytoken, this.getById.bind(this));
@@ -17,35 +18,51 @@ class CategoryController {
     prepareSearchOption(req) {
         var filter = null;
         var queryParams = req.query.search;
-        console.log('queryParams '+queryParams);
+        console.log('queryParams ' + queryParams);
         var projectid = req.params.projectId;
-        var fieldOption = null;
+        //var fieldOption = null;
         if (req.userRole == 'admin') {
             if (queryParams) {
-                filter = {projectId: projectid, name: { "$regex":queryParams , "$options": "i" }};
-                fieldOption = 'name';
+                if (projectid) {
+                    filter = { projectId: projectid, name: { "$regex": queryParams, "$options": "i" } };
+                    //fieldOption = 'name';
+                } else {
+                    filter = { name: { "$regex": queryParams, "$options": "i" } };
+                }
             } else {
-                filter = {};
+                if (projectid) {
+                    filter = { projectId: projectid };
+                } else {
+                    filter = {};
+                }
             }
 
         } else {
             if (queryParams) {
-                filter = { projectId: projectid, status: 'A', name: { "$regex":queryParams , "$options": "i" } };
-                fieldOption = 'name';
+                if(projectid){
+                filter = { projectId: projectid, status: 'A', name: { "$regex": queryParams, "$options": "i" } };
+                //fieldOption = 'name';
+                }else{
+                    filter = { status: 'A', name: { "$regex": queryParams, "$options": "i" } };
+                }
             } else {
+                if(projectid){
                 filter = { projectId: projectid, status: 'A' };
+                }else{
+                    filter = {  status: 'A' };  
+                }
             }
         }
-        return new searchOptions(filter,fieldOption);
+        return new searchOptions(filter, '');
     }
 
     getList(req, res, next) {
         var projectId = req.params.projectId;
-        if (projectId) {
-            var options = this.prepareSearchOption(req);
-            console.log('options '+options.filter);
         
-            category.find(options.filter).populate('projectId','name').exec( function (err, data) {
+            var options = this.prepareSearchOption(req);
+            console.log('options ' + options.filter);
+
+            category.find(options.filter).populate('projectId', 'name').exec(function (err, data) {
                 if (err) {
                     res.send(err);
                 } else {
@@ -53,9 +70,7 @@ class CategoryController {
                     res.send(data);
                 }
             });
-        } else {
-            res.status(404).send('please pass projectId as param');
-        }
+        
     }
 
 
@@ -83,7 +98,7 @@ class CategoryController {
     }
 
     update(req, res, next) {
-        var proj = new project(req.body);
+        //var proj = new category(req.body);
         /*  proj.createdBy = req.userId;
          proj.createdDate = commonutils.getCurrnetDate(); */
         category.findByIdAndUpdate(req.body.id, { name: req.body.name, projectId: req.body.projectId }, function (err, data) {
@@ -115,7 +130,7 @@ class CategoryController {
 
     getById(req, res, next) {
 
-        category.findById(req.params.id).populate( 'projectId','name').exec(function (err, data) {
+        category.findById(req.params.id).populate('projectId', 'name').exec(function (err, data) {
             if (err) {
                 res.send(err);
             } else {

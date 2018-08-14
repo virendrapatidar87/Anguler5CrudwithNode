@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Save Note</h1>
+
+
+<div mat-dialog-content class="form-responsive">
+    
+      <form [formGroup]="categoryDetailsForm" (ngSubmit)="onSave(categoryDetailsForm.value)">
+        
+        <input formControlName="id" type="hidden" /> 
+        <mat-form-field>
+          <mat-select placeholder="Project" [(value)] = "projectId"  formControlName="projectId">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        
+        <mat-form-field class="full-width">
+          <input matInput  placeholder="Name Of Category" type="text" formControlName="name">
+          <mat-hint align="start"><strong>Please insert Category </strong> </mat-hint>
+        </mat-form-field>
+      <br/>
+      <table><tr> <td align="center"> <button class="submit-btn" mat-button type="submit" [disabled]="!categoryDetailsForm.valid" cdkFocusInitial>{{valbutton}}</button>
+      <button mat-button (click)="onNoClick()" type="button">Cancel</button></td></tr></table>
+    </form>
+</div>

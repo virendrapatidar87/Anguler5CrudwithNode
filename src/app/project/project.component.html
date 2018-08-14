@@ -1,0 +1,55 @@
+<app-header [isUserLoggedIn]="true"></app-header>
+<div>
+  <mat-toolbar color="gray">
+
+    <mat-toolbar-row>
+      <span>Projects</span>
+      <span class="example-spacer">
+        <nav>
+
+          <button mat-raised-button (click)="openDialog()">Add New Project</button>
+        </nav>
+      </span>
+
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+</div>
+<div class="table-responsive">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table [dataSource]="projectList" class="table table-hover mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <!-- <ng-container matColumnDef="note">
+              <th mat-header-cell *matHeaderCellDef> Note </th>
+              <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+            </ng-container> -->
+    <ng-container matColumnDef="operations">
+      <th mat-header-cell *matHeaderCellDef> Operations </th>
+      <td mat-cell *matCellDef="let kk">
+        <a mat-button (click)="edit(kk._id)">
+          <mat-icon md-font-set="material-icons">edit</mat-icon>
+        </a>
+        <a mat-button (click)="delete(kk._id)" style="color:blueviolet">
+          <mat-icon md-font-set="material-icons">delete</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
