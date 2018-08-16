@@ -15,8 +15,10 @@
       </span>
         <span class="example-spacer" >
             <nav>
-                 <a mat-raised-button (click)="logout()" >Logout</a>
-              </nav>
+                <a mat-raised-button (click)="logout()" >Logout</a>
+                <a mat-raised-button activeRoute routerLink="/project" routerLinkActive="active">Project</a>
+                <a mat-raised-button activeRoute routerLink="/category" routerLinkActive="active">Category</a>
+           </nav>
         </span>
         
       </mat-toolbar-row>

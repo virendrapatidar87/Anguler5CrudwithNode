@@ -15,10 +15,23 @@
 
   </mat-toolbar>
 </div>
-<div class="table-responsive">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+<div class="table-responsive"  [formGroup]="searchCategoryForm">
+  <table >
+    <tr><td><mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field></td>
+      <td>
+          <mat-form-field >
+              <mat-select placeholder="Project" [(value)] = "projectId" formControlName= "projectId"   (selectionChange)= "reloadCategory(projectId)">
+                  <mat-option  value ="0">All</mat-option>
+                <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+              </mat-select>
+    
+            </mat-form-field>
+      </td>
+    </tr>
+  
+  </table>
   <table mat-table [dataSource]="categoryList" class="table table-hover mat-elevation-z8">
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> Position </th>
