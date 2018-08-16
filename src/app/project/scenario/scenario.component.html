@@ -1,0 +1,85 @@
+<app-header [isUserLoggedIn]="true"></app-header>
+<div>
+  <mat-toolbar color="gray">
+
+    <mat-toolbar-row>
+      <span>Scenario</span>
+      <span class="example-spacer">
+        <nav>
+
+          <button mat-raised-button (click)="openDialog()">Add New Scenario</button>
+        </nav>
+      </span>
+
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+</div>
+<div class="table-responsive"  [formGroup]="searchScenarioForm">
+  <table >
+    <tr><td><mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field></td>
+      <td>
+          <mat-form-field >
+              <mat-select placeholder="Project" [(value)] = "projectId" formControlName= "projectId"   (selectionChange)= "reloadScenarioByProject(projectId)">
+                  <mat-option  value ="0">All</mat-option>
+                <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+              </mat-select>
+    
+            </mat-form-field>
+      </td>
+      <td>
+          <mat-form-field >
+              <mat-select placeholder="Category" [(value)] = "categoryId" formControlName= "categoryId"   (selectionChange)= "reloadScenarioByCategory(categoryId)">
+                  <mat-option  value ="0">All</mat-option>
+                <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
+              </mat-select>
+    
+          </mat-form-field>  
+        
+      </td>
+    </tr>
+  
+  </table>
+  <table mat-table [dataSource]="scenarioList" class="table table-hover mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Scenrio Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="categoryName">
+        <th mat-header-cell *matHeaderCellDef> Category Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.categoryId.name}} </td>
+      </ng-container>
+    <ng-container matColumnDef="projectName">
+      <th mat-header-cell *matHeaderCellDef> Project Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.categoryId.projectId.name}} </td>
+    </ng-container>
+    <!-- Weight Column -->
+    <!-- <ng-container matColumnDef="note">
+              <th mat-header-cell *matHeaderCellDef> Note </th>
+              <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+            </ng-container> -->
+    <ng-container matColumnDef="operations">
+      <th mat-header-cell *matHeaderCellDef> Operations </th>
+      <td mat-cell *matCellDef="let kk">
+        <a mat-button (click)="edit(kk._id)">
+          <mat-icon md-font-set="material-icons">edit</mat-icon>
+        </a>
+        <a mat-button (click)="delete(kk._id)" style="color:blueviolet">
+          <mat-icon md-font-set="material-icons">delete</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>

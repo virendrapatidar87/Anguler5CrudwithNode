@@ -32,6 +32,9 @@ import { ProjectService } from './project/project.service';
 import { CategoryComponent } from './project/category/category.component';
 import { CategoryFormComponent } from './project/category/category-form/category-form.component';
 import { CategoryService } from './project/category/category.service';
+import { ScenarioComponent } from './project/scenario/scenario.component';
+import { ScenarioFormComponent } from './project/scenario/scenario-form/scenario-form.component';
+import { ScenarioService } from './project/scenario/scenario.service';
 
 
 
@@ -54,6 +57,8 @@ const appRoutes: Routes = [
     ProjectFormComponent,
     CategoryComponent,
     CategoryFormComponent,
+    ScenarioComponent,
+    ScenarioFormComponent,
 
   ],
   imports: [
@@ -65,12 +70,12 @@ const appRoutes: Routes = [
   ],
   entryComponents: [PersonComponent, UserFormComponent, UserListComponent, 
     CommonDialogComponent, RegistrationComponent, LoginComponent,
-    ProjectComponent, ProjectFormComponent, CategoryComponent,CategoryFormComponent],
+    ProjectComponent, ProjectFormComponent, CategoryComponent,CategoryFormComponent,ScenarioComponent,ScenarioFormComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyHttpInterceptor,
     multi: true
-  }, PersonService, LoginService, ProjectService,CategoryService , ],
+  }, PersonService, LoginService, ProjectService,CategoryService ,ScenarioService , ],
 
   bootstrap: [AppComponent]
 })

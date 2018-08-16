@@ -23,12 +23,19 @@ export class CategoryService {
   GetList(id: string | null) : Observable<any> {
     let headers = new HttpHeaders({'x-access-token':this.getToken()});
     if(id){
-      return this.http.get('http://localhost:8080/api/category/'+id,{headers: headers});
+      return this.http.get('http://localhost:8080/api/category/list'+id,{headers: headers});
     }else{
-    return this.http.get('http://localhost:8080/api/category/',{headers: headers});
+    return this.http.get('http://localhost:8080/api/category/list',{headers: headers});
    }
  }
-  
+ GetSelectList(id: string | null) : Observable<any> {
+  let headers = new HttpHeaders({'x-access-token':this.getToken()});
+  if(id){
+    return this.http.get('http://localhost:8080/api/category/select/'+id,{headers: headers});
+  }else{
+  return this.http.get('http://localhost:8080/api/category/select/',{headers: headers});
+ }
+}
   deleteData(id: string) : Observable<any>  {
     let headers = new HttpHeaders({'x-access-token':this.getToken()});
     return this.http.delete('http://localhost:8080/api/category/'+ id,{headers : headers});

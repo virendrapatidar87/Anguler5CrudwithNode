@@ -6,7 +6,10 @@ const category = require('../../../models/category'),
 class ScenarioController {
 
     constructor(router) {
-        router.get('/:categoryId', verifytoken, this.getList.bind(this));
+        router.get('/list/:projectId/:categoryId', verifytoken, this.getList.bind(this));
+        router.get('/list/:projectId', verifytoken, this.getList.bind(this));
+        router.get('/list', verifytoken, this.getList.bind(this));
+       
         router.post('/', verifytoken, this.save.bind(this));
         router.put('/', verifytoken, this.update.bind(this));
         router.get('/by_id/:id', verifytoken, this.getById.bind(this));

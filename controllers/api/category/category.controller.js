@@ -6,8 +6,10 @@ const category = require('../../../models/category'),
 class CategoryController {
 
     constructor(router) {
-        router.get('/:projectId', verifytoken, this.getList.bind(this));
-        router.get('/', verifytoken, this.getList.bind(this));
+        router.get('/list/:projectId', verifytoken, this.getList.bind(this));
+        router.get('/list', verifytoken, this.getList.bind(this));
+        router.get('/select/:projectId', verifytoken, this.getSelectList.bind(this));
+        router.get('/select', verifytoken, this.getSelectList.bind(this));
         router.post('/', verifytoken, this.save.bind(this));
         router.put('/', verifytoken, this.update.bind(this));
         router.get('/by_id/:id', verifytoken, this.getById.bind(this));
@@ -72,7 +74,22 @@ class CategoryController {
             });
         
     }
+    getSelectList(req,res,next){
+        console.log('options ----- ' );
+        var projectId = req.params.projectId;
+        
+            var options = this.prepareSearchOption(req);
+            console.log('options ----- ' + options.filter);
 
+            category.find(options.filter,'name').populate('projectId', 'name').exec(function (err, data) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    //console.log("data --------------------------------")
+                    res.send(data);
+                }
+            });
+    }
 
     save(req, res, next) {
         var cat = new category(req.body);

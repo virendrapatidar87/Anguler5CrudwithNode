@@ -1,0 +1,46 @@
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+    width: 100%;
+  }
+
+.mat-form-field[_ngcontent-c4][_ngcontent-c4] {
+    width: 96%;
+    margin: auto;
+    padding-left: 4%;
+}
+
+.mat-header-cell {
+    font-size: 14px;
+}
+.table td {
+    vertical-align: middle;
+}
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .mat-button{
+    min-width: 35px;
+    line-height: 35px;
+    border-radius: 15px;
+    padding: 0px 0px;
+  }
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .table-responsive{
+      margin: auto;
+      width: 50%;
+  }
