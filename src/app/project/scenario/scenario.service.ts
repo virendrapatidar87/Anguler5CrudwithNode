@@ -33,13 +33,15 @@ export class ScenarioService {
   
   GetList(projectId: string | null, categoryId: string | null): Observable<any> {
     let headers = new HttpHeaders({ 'x-access-token': this.getToken() });
-    if (projectId) {
+   
+    if (projectId!=null) {
       if (categoryId) {
         return this.http.get('http://localhost:8080/api/scenario/list/' + projectId + '/' + categoryId, { headers: headers });
       } else {
         return this.http.get('http://localhost:8080/api/scenario/list/' + projectId, { headers: headers });
       }
     } else {
+      console.log('without project id')
       return this.http.get('http://localhost:8080/api/scenario/list', { headers: headers });
     }
   }

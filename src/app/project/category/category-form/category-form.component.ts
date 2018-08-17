@@ -16,6 +16,7 @@ export class CategoryFormComponent implements OnInit {
   categoryDetailsForm;
   selectedProject;
   projects;
+  projectMode = false;
   constructor(private categoryService: CategoryService, private projectService: ProjectService,
     public dialogRef: MatDialogRef<CategoryFormComponent>, @Inject(MAT_DIALOG_DATA) public data: CategoryFormData) { }
 
@@ -29,10 +30,13 @@ export class CategoryFormComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(30)
       ]),
-      'projectId': new FormControl('0')
+      'projectId': new FormControl(null,[
+        Validators.required
+      ])
     })
 
     if(this.data.projectId){
+      this.projectMode=true;
       this.categoryDetailsForm.setValue({
         'id': null,
         'projectId': this.data.projectId,

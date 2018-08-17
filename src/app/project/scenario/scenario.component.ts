@@ -5,6 +5,9 @@ import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ScenarioService } from './scenario.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { CategoryFormComponent } from '../category/category-form/category-form.component';
+import { CommonDialogComponent } from '../../common/common-dialog/common-dialog.component';
+import { ScenarioFormComponent } from './scenario-form/scenario-form.component';
 
 @Component({
   selector: 'app-scenario',
@@ -12,12 +15,14 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./scenario.component.css']
 })
 export class ScenarioComponent implements OnInit {
-  scanrioList;
+  scenarioList;
   cId;
-  searchCategoryForm;
+  searchScenarioForm;
   projects;
   categories;
   selectedProjectId;
+  displayedColumns: string[] = ['position', 'name', 'categoryName', 'projectName', 'operations'];
+  id : string;
   constructor(private scenarioService: ScenarioService,private categoryService: CategoryService , private projectService: ProjectService,public dialog: MatDialog , private router: Router,private route: ActivatedRoute) { }
 
   private paginator: MatPaginator;
@@ -36,7 +41,7 @@ export class ScenarioComponent implements OnInit {
         disableCategorySelectBox = false;
       }
       
-      this.searchCategoryForm =  new FormGroup({
+      this.searchScenarioForm =  new FormGroup({
         'categoryId': new FormControl({value: '',disabled: disableCategorySelectBox}),
         'projectId': new FormControl({value: '',disabled: disableCategorySelectBox})
     
@@ -48,13 +53,16 @@ export class ScenarioComponent implements OnInit {
         
        // this.categoryService.GetList(this.pId).subscribe(data => { this.categoryList = new MatTableDataSource(data);this.categoryList.paginator = this.paginator;},error => 'error')
         this.reloadScenario(null,this.cId);
-         if(this.cId){
-         this.searchCategoryForm.setValue({
-          'projectId': this.cId,
+        
+        if(this.cId){
+         this.searchScenarioForm.setValue({
+          'categoryId': this.cId,
+          'projectId':'0'
          })
          }else{
-          this.searchCategoryForm.setValue({
-            'projectId': '0'
+          this.searchScenarioForm.setValue({
+            'categoryId': '0',
+            'projectId':'0'
            })
          }
        // console.log("=======================================Person======================================");
@@ -67,18 +75,73 @@ export class ScenarioComponent implements OnInit {
    
 }
 reloadScenario(projectId,categoryId) : void{
-  
-  
-  if(projectId=='0'){
-    projectId=null;
-  }
-  if(categoryId=='0'){
-    categoryId=null;
-  }
-  if(projectId==null && categoryId){
-  this.scenarioService.GetList('0',categoryId).subscribe(data => { this.scanrioList = new MatTableDataSource(data);this.scanrioList.paginator = this.paginator;},error => 'error')
+  console.log('CidS'+this.cId);   
+  if((projectId==null ||projectId=='0') && (categoryId==null ||categoryId=='0')){
+    this.scenarioService.GetList(null,null).subscribe(data => { console.log(JSON.stringify(data));this.scenarioList = new MatTableDataSource(data);this.scenarioList.paginator = this.paginator;},error => 'error')
   }else{
-    this.scenarioService.GetList(projectId,categoryId).subscribe(data => { this.scanrioList = new MatTableDataSource(data);this.scanrioList.paginator = this.paginator;},error => 'error')
+    if((projectId==null ||projectId=='0') && !(categoryId==null ||categoryId=='0'))
+    this.scenarioService.GetList('0',categoryId).subscribe(data => { console.log(JSON.stringify(data));this.scenarioList = new MatTableDataSource(data);this.scenarioList.paginator = this.paginator;},error => 'error')
   }
+
+  
+}
+
+applyFilter(filterValue: string) {
+  //console.log("=======================================Person======================================" + filterValue);
+  this.scenarioList.filter = filterValue.trim().toLowerCase();
+  if (this.scenarioList.paginator) {
+    this.scenarioList.paginator.firstPage();
+  }
+  //console.log("=======================================Person======================================" + this.Repdata);
+}
+edit = function(id) {
+  console.log("=======================================Person======================================" + id);
+  this.id = id;
+  this.openDialog();
+}
+
+delete = function(id) {
+ 
+  this.openOpDialog('delete',id);
+}
+confirmDelete = function(id) {
+  this.scenarioService.deleteData(id)
+    .subscribe(data => {
+    //  alert(data.data);
+      this.ngOnInit();
+    },
+    error => this.errorMessage = error
+  )
+}
+openDialog(): void {
+  console.log('requested project'+this.cId)
+  const dialogRef = this.dialog.open(ScenarioFormComponent, {
+    width: '350px' , 
+     data: {id : this.id,categoryId: this.cId}
+  });
+  
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    this.id = null;
+    
+    this.ngOnInit();
+  });
+}
+
+openOpDialog(operation,id): void {
+  console.log(' --------------------------- '+ operation);
+  const dialogRef = this.dialog.open(CommonDialogComponent, {
+    width: '450px' , 
+     data: {dialogOp : operation}
+  });
+  
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    if(result && result=='ok'){
+      this.confirmDelete(id);
+      this.ngOnInit();
+    }
+    
+  });
 }
 }

@@ -40,7 +40,8 @@ import { ScenarioService } from './project/scenario/scenario.service';
 
 const appRoutes: Routes = [
   { path: 'person', component: PersonComponent }, { path: 'users', component: UserListComponent }, { path: 'login', component: LoginComponent },
-   { path: 'project', component: ProjectComponent }, { path: 'category', component: CategoryComponent }, { path: 'category/:pId', component: CategoryComponent }];
+   { path: 'project', component: ProjectComponent }, { path: 'category', component: CategoryComponent }, { path: 'category/:pId', component: CategoryComponent },
+   { path: 'scenario', component: ScenarioComponent }, { path: 'scenario/list/:cId', component: ScenarioComponent }];
 
 
 @NgModule({

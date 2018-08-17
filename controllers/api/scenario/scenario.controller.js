@@ -1,4 +1,5 @@
-const category = require('../../../models/category'),
+const project = require('../../../models/project'),
+category = require('../../../models/category'),
     scenario = require('../../../models/scenario'),
     verifytoken = require('../../../config/verifytoken'),
     commonutils = require('../../../config/common'),
@@ -22,29 +23,87 @@ class ScenarioController {
         var queryParams = req.query.search;
         console.log('queryParams '+queryParams);
         var categoryid = req.params.categoryId;
-        var fieldOption = null;
+        var projectid = req.params.projectId;
+       // var fieldOption = null;
         if (req.userRole == 'admin') {
             if (queryParams) {
+                if (categoryid) {
                 filter = {categoryId: categoryid, name: { "$regex":queryParams , "$options": "i" }};
-                fieldOption = 'name';
+                 }else{
+                    filter = { name: { "$regex":queryParams , "$options": "i" }};
+                 }
+                  // fieldOption = 'name';
             } else {
+                if (categoryid) {
+                filter = {categoryId: categoryid};
+            }else{
                 filter = {};
+            }
             }
 
         } else {
             if (queryParams) {
+                if (categoryid) {
                 filter = { categoryId: categoryid, status: 'A', name: { "$regex":queryParams , "$options": "i" } };
-                fieldOption = 'name';
+                  }else{
+                      filter = {status: 'A', name: { "$regex":queryParams , "$options": "i" }};
+                  }
+
             } else {
+                if (categoryid) {
                 filter = { categoryId: categoryid, status: 'A' };
+                }else{
+                    filter = {  status: 'A' };
+                }
             }
         }
-        return new searchOptions(filter,fieldOption);
+        return new searchOptions(filter,'');
     }
 
     getList(req, res, next) {
+        //scenario.remove({}).exec(function(err,data){})        
         var categoryId = req.params.categoryId;
-        if (categoryId) {
+        var projectId = req.params.projectId;
+        console.log('project id'+ projectId)
+      
+            /* if(projectId!=null && projectId!='0'){
+
+                category.find({'projectId':projectId },'_id').exec(function (err, data) {
+                  
+                    scenario.find({'categoryId':categoryId }).populate({
+                
+                        path: 'categoryId',
+                select: 'name projectId',
+                populate: { path: 'projectId', select: 'name', model: project }
+                }).exec(function (err, data) {
+                    res.send(data);
+                })
+            })
+
+            } */
+
+       var filterOption=     this.prepareSearchOption(req);
+     /*  scenario.remove({},function(err,data){
+          console.log(data);
+      });  */   
+      console.log(JSON.stringify(filterOption.filter))
+       scenario.find(filterOption.filter).populate({
+                
+        path: 'categoryId',
+        select: 'name projectId',
+        populate: { path: 'projectId', select: 'name', model: project }
+        }).exec(function (err, data) {
+            res.send(data);
+        })
+       
+
+        
+
+        
+       
+
+
+        /* if (categoryId) {
             var options = this.prepareSearchOption(req);
             console.log('options '+options.filter);
         
@@ -58,7 +117,7 @@ class ScenarioController {
             });
         } else {
             res.status(404).send('please pass categoryId as param');
-        }
+        } */
     }
 
 
@@ -89,7 +148,7 @@ class ScenarioController {
        // var proj = new scenario(req.body);
         /*  proj.createdBy = req.userId;
          proj.createdDate = commonutils.getCurrnetDate(); */
-         scenario.findByIdAndUpdate(req.body.id, { name: req.body.name, projectId: req.body.projectId }, function (err, data) {
+         scenario.findByIdAndUpdate(req.body.id, { name: req.body.name, categoryId: req.body.categoryId }, function (err, data) {
             if (err) {
                 res.send(err);
             } else {
@@ -118,7 +177,10 @@ class ScenarioController {
 
     getById(req, res, next) {
 
-        scenario.findById(req.params.id).populate( 'categoryId','name').exec(function (err, data) {
+        scenario.findById(req.params.id).populate( { path: 'categoryId',
+        select: 'projectId',
+        populate: { path: 'projectId', select: '_id', model: project }
+    }).exec(function (err, data) {
             if (err) {
                 res.send(err);
             } else {
