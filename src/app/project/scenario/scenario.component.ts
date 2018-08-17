@@ -75,15 +75,14 @@ export class ScenarioComponent implements OnInit {
    
 }
 reloadScenario(projectId,categoryId) : void{
-  
-  
-  
-  
+  console.log('CidS'+this.cId);   
   if((projectId==null ||projectId=='0') && (categoryId==null ||categoryId=='0')){
     this.scenarioService.GetList(null,null).subscribe(data => { console.log(JSON.stringify(data));this.scenarioList = new MatTableDataSource(data);this.scenarioList.paginator = this.paginator;},error => 'error')
   }else{
-    this.scenarioService.GetList(projectId,categoryId).subscribe(data => { console.log(JSON.stringify(data));this.scenarioList = new MatTableDataSource(data);this.scenarioList.paginator = this.paginator;},error => 'error')
+    if((projectId==null ||projectId=='0') && !(categoryId==null ||categoryId=='0'))
+    this.scenarioService.GetList('0',categoryId).subscribe(data => { console.log(JSON.stringify(data));this.scenarioList = new MatTableDataSource(data);this.scenarioList.paginator = this.paginator;},error => 'error')
   }
+
   
 }
 
@@ -118,7 +117,7 @@ openDialog(): void {
   console.log('requested project'+this.cId)
   const dialogRef = this.dialog.open(ScenarioFormComponent, {
     width: '350px' , 
-     data: {id : this.id,projectId: this.cId}
+     data: {id : this.id,categoryId: this.cId}
   });
   
   dialogRef.afterClosed().subscribe(result => {

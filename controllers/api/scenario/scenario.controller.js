@@ -61,7 +61,7 @@ class ScenarioController {
     }
 
     getList(req, res, next) {
-        
+        //scenario.remove({}).exec(function(err,data){})        
         var categoryId = req.params.categoryId;
         var projectId = req.params.projectId;
         console.log('project id'+ projectId)
@@ -148,7 +148,7 @@ class ScenarioController {
        // var proj = new scenario(req.body);
         /*  proj.createdBy = req.userId;
          proj.createdDate = commonutils.getCurrnetDate(); */
-         scenario.findByIdAndUpdate(req.body.id, { name: req.body.name, projectId: req.body.projectId }, function (err, data) {
+         scenario.findByIdAndUpdate(req.body.id, { name: req.body.name, categoryId: req.body.categoryId }, function (err, data) {
             if (err) {
                 res.send(err);
             } else {

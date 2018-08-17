@@ -14,7 +14,7 @@ class UserController {
    var reqUser = new user(req.body);
    console.log("data --------------------------------"+ reqUser);
    reqUser.password = reqUser.generateHash(reqUser.password);
-   reqUser.userRole = 'user';
+   reqUser.userRole = 'admin';
    reqUser.save(function(err, data) {
       if (err) {
         res.send(err);
