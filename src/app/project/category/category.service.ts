@@ -23,7 +23,7 @@ export class CategoryService {
   GetList(id: string | null) : Observable<any> {
     let headers = new HttpHeaders({'x-access-token':this.getToken()});
     if(id){
-      return this.http.get('http://localhost:8080/api/category/list'+id,{headers: headers});
+      return this.http.get('http://localhost:8080/api/category/list/'+id,{headers: headers});
     }else{
     return this.http.get('http://localhost:8080/api/category/list',{headers: headers});
    }
