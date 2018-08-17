@@ -15,12 +15,12 @@
 
   </mat-toolbar>
 </div>
-<div class="table-responsive"  [formGroup]="searchScenarioForm">
+<div class="table-responsive" [formGroup]="searchScenarioForm" >
   <table >
     <tr><td><mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field></td>
-      <td>
+      <!-- <td>  
           <mat-form-field >
               <mat-select placeholder="Project" [(value)] = "projectId" formControlName= "projectId"   (selectionChange)= "reloadScenarioByProject(projectId)">
                   <mat-option  value ="0">All</mat-option>
@@ -28,10 +28,10 @@
               </mat-select>
     
             </mat-form-field>
-      </td>
+      </td> -->
       <td>
           <mat-form-field >
-              <mat-select placeholder="Category" [(value)] = "categoryId" formControlName= "categoryId"   (selectionChange)= "reloadScenarioByCategory(categoryId)">
+              <mat-select placeholder="Category" [(value)] = "categoryId" formControlName= "categoryId"   (selectionChange)= "reloadScenario('0',categoryId)">
                   <mat-option  value ="0">All</mat-option>
                 <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
               </mat-select>

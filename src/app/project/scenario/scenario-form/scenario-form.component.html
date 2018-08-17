@@ -1,3 +1,29 @@
-<p>
-  scenario-form works!
-</p>
+<h1 mat-dialog-title>Scenario</h1>
+
+
+<div mat-dialog-content class="form-responsive">
+    
+      <form [formGroup]="scenarioDetailsForm" (ngSubmit)="onSave(scenarioDetailsForm.value)">
+        
+        <input formControlName="id" type="hidden" /> 
+        <mat-form-field>
+          <mat-select placeholder="Project" [(value)] = "projectId"  formControlName="projectId" (selectionChange)= "reloadCategory(projectId)">
+            <mat-option *ngFor="let project of projects" [value]="project._id">{{project.name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Category" [(value)] = "categoryId"  formControlName="categoryId">
+            <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput  placeholder="Scenario Details" type="text" formControlName="name">
+          <mat-hint align="start"><strong>Please insert Scenario </strong> </mat-hint>
+        </mat-form-field>
+      <br/>
+      <table><tr> <td align="center"> <button class="submit-btn" mat-button type="submit" [disabled]="!scenarioDetailsForm.valid" cdkFocusInitial>{{valbutton}}</button>
+      <button mat-button (click)="onNoClick()" type="button">Cancel</button></td></tr></table>
+    </form>
+</div>
