@@ -106,7 +106,7 @@ delete = function(id) {
   this.openOpDialog('delete',id);
 }
 confirmDelete = function(id) {
-  this.categoryService.deleteData(id)
+  this.scenarioService.deleteData(id)
     .subscribe(data => {
     //  alert(data.data);
       this.ngOnInit();
