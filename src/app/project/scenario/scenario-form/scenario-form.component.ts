@@ -43,6 +43,7 @@ export class ScenarioFormComponent implements OnInit {
 
     this.projectService.GetSelectList().subscribe(data => {
     this.projects = data;
+    
 
       //this.categoryDetailsForm.setValue({'_id':'0','Name':'None'}, {onlySelf: true});
       // this.selectedProject = '0'
