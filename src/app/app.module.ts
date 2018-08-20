@@ -35,12 +35,16 @@ import { CategoryService } from './project/category/category.service';
 import { ScenarioComponent } from './project/scenario/scenario.component';
 import { ScenarioFormComponent } from './project/scenario/scenario-form/scenario-form.component';
 import { ScenarioService } from './project/scenario/scenario.service';
+import { FeatureComponent } from './project/feature/feature.component';
+import { FeatureService } from './project/feature/feature.service';
+import { FeatureFormComponent } from './project/feature/feature-form/feature-form.component';
 
 
 
 const appRoutes: Routes = [
   { path: 'person', component: PersonComponent }, { path: 'users', component: UserListComponent }, { path: 'login', component: LoginComponent },
-   { path: 'project', component: ProjectComponent }, { path: 'category', component: CategoryComponent }, { path: 'category/:pId', component: CategoryComponent },
+   { path: 'project', component: ProjectComponent }, { path: 'feature', component: FeatureComponent }, { path: 'feature/:pId', component: FeatureComponent }
+   , { path: 'category', component: CategoryComponent }, { path: 'category/:pId', component: CategoryComponent },
    { path: 'scenario', component: ScenarioComponent }, { path: 'scenario/list/:cId', component: ScenarioComponent }];
 
 
@@ -60,6 +64,8 @@ const appRoutes: Routes = [
     CategoryFormComponent,
     ScenarioComponent,
     ScenarioFormComponent,
+    FeatureComponent,
+    FeatureFormComponent,
 
   ],
   imports: [
@@ -71,12 +77,14 @@ const appRoutes: Routes = [
   ],
   entryComponents: [PersonComponent, UserFormComponent, UserListComponent, 
     CommonDialogComponent, RegistrationComponent, LoginComponent,
-    ProjectComponent, ProjectFormComponent, CategoryComponent,CategoryFormComponent,ScenarioComponent,ScenarioFormComponent],
+    ProjectComponent, ProjectFormComponent,FeatureComponent,FeatureFormComponent,
+    CategoryComponent,
+    CategoryFormComponent,ScenarioComponent,ScenarioFormComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyHttpInterceptor,
     multi: true
-  }, PersonService, LoginService, ProjectService,CategoryService ,ScenarioService , ],
+  }, PersonService, LoginService, ProjectService,CategoryService ,ScenarioService , FeatureService, ],
 
   bootstrap: [AppComponent]
 })

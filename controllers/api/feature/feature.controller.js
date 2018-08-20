@@ -3,7 +3,7 @@ const feature = require('../../../models/feature'),
     verifytoken = require('../../../config/verifytoken'),
     commonutils = require('../../../config/common'),
     searchOptions = require('../../../config/searchoptions');
-class CategoryController {
+class FeatureController {
 
     constructor(router) {
         router.get('/list', verifytoken, this.getList.bind(this));
@@ -65,7 +65,7 @@ class CategoryController {
         var options = this.prepareSearchOption(req);
         console.log('options ----- ' + options.filter);
 
-        category.find(options.filter, 'name').populate('projectId', 'name').exec(function (err, data) {
+        feature.find(options.filter, 'name').populate('projects', 'name').exec(function (err, data) {
             if (err) {
                 res.send(err);
             } else {
@@ -99,15 +99,12 @@ class CategoryController {
     }
 
     update(req, res, next) {
-        //var proj = new category(req.body);
-        /*  proj.createdBy = req.userId;
-         proj.createdDate = commonutils.getCurrnetDate(); */
-        category.findByIdAndUpdate(req.body.id, { name: req.body.name, projectId: req.body.projectId }, function (err, data) {
+        feature.findByIdAndUpdate(req.body.id, { name: req.body.name, projects: req.body.projects }, function (err, data) {
             if (err) {
                 res.send(err);
             } else {
                 res.send({
-                    data: "Category has been updated..!!"
+                    data: "feature has been updated..!!"
                 });
             }
         });
@@ -115,12 +112,12 @@ class CategoryController {
 
     delete(req, res, next) {
         if (req.userRole == 'admin') {
-            category.findByIdAndRemove(req.params.id, function (err, data) {
+            feature.findByIdAndRemove(req.params.id, function (err, data) {
                 if (err) {
                     res.send(err);
                 } else {
                     res.send({
-                        data: "Category has been deleted..!!"
+                        data: "feature has been deleted..!!"
                     });
                 }
             });
@@ -131,7 +128,7 @@ class CategoryController {
 
     getById(req, res, next) {
 
-        category.findById(req.params.id).populate('projectId', 'name').exec(function (err, data) {
+        feature.findById(req.params.id).populate('projects', 'name').exec(function (err, data) {
             if (err) {
                 res.send(err);
             } else {
@@ -145,4 +142,4 @@ class CategoryController {
     }
 }
 
-module.exports = CategoryController;
+module.exports = FeatureController;

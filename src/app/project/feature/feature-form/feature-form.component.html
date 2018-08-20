@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Save Feature</h1>
+
+
+<div mat-dialog-content class="form-responsive">
+    
+      <form [formGroup]="featureDetailsForm" (ngSubmit)="onSave(featureDetailsForm.value)">
+        
+        <input formControlName="id" type="hidden" /> 
+        <mat-form-field>
+          <mat-select placeholder="Project" [compareWith]="compState" [(value)] = "projects"  formControlName="projects" required multiple>
+            <mat-option *ngFor="let project of projectsList" [value]="project">{{project.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field class="full-width">
+          <input matInput  placeholder="Name Of Feature" type="text" formControlName="name">
+          <mat-hint align="start"><strong>Please insert Feature </strong> </mat-hint>
+        </mat-form-field>
+      <br/>
+      <table><tr> <td align="center"> <button class="submit-btn" mat-button type="submit" [disabled]="!featureDetailsForm.valid" cdkFocusInitial>{{valbutton}}</button>
+      <button mat-button (click)="onNoClick()" type="button">Cancel</button></td></tr></table>
+    </form>
+</div>
