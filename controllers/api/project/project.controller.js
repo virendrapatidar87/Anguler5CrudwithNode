@@ -39,8 +39,10 @@ class ProjectController {
     }
 
     getList(req, res, next) {
-       var options=    this.prepareSearchOption(req);
-        project.find(options.filter, function (err, data) {
+       
+        var options=    this.prepareSearchOption(req);
+        project.schema.options = {toJason: {virtuals:false}};
+        project.find(options.filter,'name')/* .populate('name') */.exec( function (err, data) {
             if (err) {
                 res.send(err);
             } else {
@@ -48,6 +50,7 @@ class ProjectController {
                 res.send(data);
             }
         });
+        
     }
     getSelectList(req, res, next) {
        // var options=    this.prepareSearchOption(req);
