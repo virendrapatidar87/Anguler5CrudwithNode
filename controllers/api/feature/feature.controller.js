@@ -21,6 +21,7 @@ class FeatureController {
         var queryParams = req.query.search;
         console.log('queryParams ' + queryParams);
 
+
         if (req.userRole == 'admin') {
             if (queryParams) {
                 filter = { name: { "$regex": queryParams, "$options": "i" } };
@@ -37,13 +38,16 @@ class FeatureController {
                 filter = { status: 'A' };
             }
         }
-
+        var projectIds = req.query.projectId;
+        console.log(projectIds)
+        if(projectIds){
+            filter['projects'] = {$in: projectIds }
+        }
         return new searchOptions(filter, '');
     }
 
     getList(req, res, next) {
-        var projectIds = req.query.projectId;
-
+        
         var options = this.prepareSearchOption(req);
         console.log('options ' + options.filter);
         feature.schema.options = {toJson : {virtuals:false}};

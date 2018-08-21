@@ -44,9 +44,15 @@
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
     <ng-container matColumnDef="projects">
-      <th mat-header-cell *matHeaderCellDef> Project </th>
+      <th mat-header-cell *matHeaderCellDef> Projects </th>
       <td mat-cell *matCellDef="let element; ">
-          <button mat-button [matMenuTriggerFor]="menu">Project</button>
+          <button mat-button [matMenuTriggerFor]="menu">
+            
+              {{element.projects? element.projects[0].name : ''}}
+              <span *ngIf="projects?.length > 1" class="example-additional-selection">
+                (+{{element.projects.length - 1}} {{element.projects?.length === 2 ? 'other' : 'others'}})
+              </span>
+          </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item *ngFor="let project of element.projects">{{project.name}}</button>
           </mat-menu>

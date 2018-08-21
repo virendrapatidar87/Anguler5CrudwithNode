@@ -7,7 +7,13 @@
         
         <input formControlName="id" type="hidden" /> 
         <mat-form-field>
-          <mat-select placeholder="Project" [compareWith]="compState" [(value)] = "projects"  formControlName="projects" required multiple>
+          <mat-select #projectSelect placeholder="Project" [compareWith]="compState" [(value)] = "projects"  formControlName="projects" required multiple>
+            <mat-select-trigger>
+              {{projects? projects[0].name : ''}}
+              <span *ngIf="projects?.length > 1" class="example-additional-selection">
+                (+{{projects.length - 1}} {{projects?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
             <mat-option *ngFor="let project of projectsList" [value]="project">{{project.name}}</mat-option>
           </mat-select>
         </mat-form-field>

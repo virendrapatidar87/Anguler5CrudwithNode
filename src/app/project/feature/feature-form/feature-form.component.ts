@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ProjectService } from '../../project.service';
 import { FeatureService } from '../feature.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatOption } from '../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatOption, MatSelect } from '../../../../../node_modules/@angular/material';
 import { FeatureFormData } from '../feature-form';
 import { FormGroup, FormControl, Validators } from '../../../../../node_modules/@angular/forms';
 
@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '../../../../../node_modules/
   templateUrl: './feature-form.component.html',
   styleUrls: ['./feature-form.component.css']
 })
+
 export class FeatureFormComponent implements OnInit {
   valbutton = 'Save';
   featureDetailsForm;
@@ -19,7 +20,12 @@ export class FeatureFormComponent implements OnInit {
   
   constructor(private featureService: FeatureService, private projectService: ProjectService,
     public dialogRef: MatDialogRef<FeatureFormComponent>, @Inject(MAT_DIALOG_DATA) public data: FeatureFormData) { }
+  projectSelect;
 
+  @ViewChild(MatSelect) set matSelect(mp: MatSelect) {
+    this.projectSelect = mp;
+    // this.setDataSourceAttributes();
+  }
   ngOnInit() {
     console.log('=========Init User Form=======' + this.data.id)
     
@@ -74,7 +80,7 @@ export class FeatureFormComponent implements OnInit {
       'projects': data.projects
     });
     //this.selectedProject  = data.projectId._id;
-    
+    this.projectSelect.matSelect = true;
    }
 compState(val1: any, val2: any)  :boolean  {
     

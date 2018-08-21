@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(user) : void {
-    this.newService.login(user).subscribe(data => { console.log(data); localStorage.setItem('currentUser', data.token); console.log(' ****************************************'+localStorage.getItem('currentUser')); this.router.navigate(['/users']);}
+    this.newService.login(user).subscribe(data => { console.log(data); localStorage.setItem('currentUser', data.token); console.log(' ****************************************'+localStorage.getItem('currentUser')); this.router.navigate(['/project']);}
       , error => error);
     
   }

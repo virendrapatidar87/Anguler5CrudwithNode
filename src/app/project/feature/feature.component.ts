@@ -130,6 +130,7 @@ export class FeatureComponent implements OnInit {
   }
 
   reloadFeature(projectId) : void{
+    console.log(projectId)
     if(projectId=='0'){
       projectId=null;
     }

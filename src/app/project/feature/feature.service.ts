@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '../../../../node_modules/@angular/common/http';
 import { Observable } from '../../../../node_modules/rxjs';
 
 @Injectable({
@@ -22,10 +22,22 @@ export class FeatureService {
     let headers = new HttpHeaders({'x-access-token':this.getToken()});
     return this.http.put('http://localhost:8080/api/feature/', dataobject ,{ headers : headers});
   }
-  GetList(id: string | null) : Observable<any> {
+  GetList(id: string[] | null) : Observable<any> {
     let headers = new HttpHeaders({'x-access-token':this.getToken()});
+    console.log(id);
     if(id){
-      return this.http.get('http://localhost:8080/api/feature/list/',{headers: headers});
+    let queryParams =  new HttpParams();
+    let objectQParams:string = '';
+    
+    for(var i=0 ; i<id.length ; i++ ){
+     console.log(id[i]);
+      objectQParams +='projectId='+id[i];
+      if(id.length!=i+1){
+        objectQParams +='&'
+      }
+    }
+    console.log(objectQParams);
+      return this.http.get('http://localhost:8080/api/feature/list/?'+objectQParams,{headers: headers});
     }else{
     return this.http.get('http://localhost:8080/api/feature/list/',{headers: headers});
    }
