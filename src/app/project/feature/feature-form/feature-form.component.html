@@ -8,7 +8,7 @@
         <input formControlName="id" type="hidden" /> 
         <mat-form-field>
           <mat-select #projectSelect placeholder="Project" [compareWith]="compState" [(value)] = "projects"  formControlName="projects" required multiple>
-            <mat-select-trigger>
+            <mat-select-trigger *ngIf="projects">
               {{projects? projects[0].name : ''}}
               <span *ngIf="projects?.length > 1" class="example-additional-selection">
                 (+{{projects.length - 1}} {{projects?.length === 2 ? 'other' : 'others'}})

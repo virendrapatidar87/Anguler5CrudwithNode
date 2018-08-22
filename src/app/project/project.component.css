@@ -44,3 +44,9 @@
       margin: auto;
       width: 50%;
   }
+  .main__container[_ngcontent-c0] {
+    
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+  }

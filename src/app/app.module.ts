@@ -38,6 +38,7 @@ import { ScenarioService } from './project/scenario/scenario.service';
 import { FeatureComponent } from './project/feature/feature.component';
 import { FeatureService } from './project/feature/feature.service';
 import { FeatureFormComponent } from './project/feature/feature-form/feature-form.component';
+import { AppService } from './app.service';
 
 
 
@@ -84,7 +85,7 @@ const appRoutes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: MyHttpInterceptor,
     multi: true
-  }, PersonService, LoginService, ProjectService,CategoryService ,ScenarioService , FeatureService, ],
+  }, AppService,PersonService, LoginService, ProjectService,CategoryService ,ScenarioService , FeatureService, ],
 
   bootstrap: [AppComponent]
 })

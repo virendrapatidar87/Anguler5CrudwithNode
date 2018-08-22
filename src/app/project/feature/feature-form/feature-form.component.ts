@@ -80,7 +80,7 @@ export class FeatureFormComponent implements OnInit {
       'projects': data.projects
     });
     //this.selectedProject  = data.projectId._id;
-    this.projectSelect.matSelect = true;
+   // this.projectSelect._onChange(true);
    }
 compState(val1: any, val2: any)  :boolean  {
     

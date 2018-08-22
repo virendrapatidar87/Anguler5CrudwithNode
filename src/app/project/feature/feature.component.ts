@@ -32,7 +32,7 @@ export class FeatureComponent implements OnInit {
     this.paginator = mp;
     // this.setDataSourceAttributes();
   }
-
+  
   ngOnInit() {
      this.route.params.subscribe(params => {
       this.pId = params['pId']; // (+) converts string 'id' to a number
