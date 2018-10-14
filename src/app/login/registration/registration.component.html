@@ -1,4 +1,6 @@
-<div mat-dialog-content class="form-responsive">
+<div mat-dialog-content class="auth-form-light text-left p-5">
+   <h2>Register</h2>
+                <h4 class="font-weight-light">Hello! let's get started</h4>
   <form [formGroup]="registrationForm" (ngSubmit)="onRegister(registrationForm.value)">
 
     <mat-form-field class="full-width">
@@ -9,7 +11,8 @@
 
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="username" type="text" formControlName="username">
+      <input matInput   placeholder="username" type="email" formControlName="username">
+	  <mat-icon matSuffix svgIcon="user"></mat-icon>
     </mat-form-field>
 
 
@@ -23,14 +26,11 @@
       <mat-icon matSuffix (click)="hide = hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
     <br/>
-    <table>
-      <tr>
-        <td align="center">
-          <button class="submit-btn" mat-button type="submit" [disabled]="!registrationForm.valid" cdkFocusInitial>Register</button>
-          <button mat-button (click)="onNoClick()" type="button">Cancel</button>
-        </td>
-      </tr>
-    </table>
+   
+
+          <button class="submit-btn btn btn-block btn-primary btn-lg font-weight-medium" mat-button type="submit" [disabled]="!registrationForm.valid" cdkFocusInitial>Register</button>
+        <!--   <button mat-button (click)="onNoClick()" type="button">Cancel</button> -->
+      
   </form>
 
 </div>

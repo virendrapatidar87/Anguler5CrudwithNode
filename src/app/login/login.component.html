@@ -1,10 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<app-header ></app-header>
-<div class="form-responsive">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-  
+
+<!-- Mirrored from www.urbanui.com/victory/pages/samples/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Sep 2018 12:32:41 GMT -->
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Victory Admin</title>
+  <!-- plugins:css -->
+ <!--  <link rel="stylesheet" href="../../node_modules/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../node_modules/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="../../node_modules/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css"> -->
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- <link rel="stylesheet" href="../../css/style.css"> -->
+  <!-- endinject -->
+<!--   <link rel="shortcut icon" href="../../images/favicon.png" />
+ --></head>
+<body>
+<div class="container-scroller">
+<div class="container-fluid page-body-wrapper">   
+ <div class="row">
+ <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-full-bg">  
+   <div class="row w-100">
+            <div class="col-lg-4 mx-auto">
+			<div class="auth-form-dark text-left p-5">
+			<h2>Login</h2>
+                <h4 class="font-weight-light">Hello! let's get started</h4>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+ 
+
       <mat-form-field class="full-width">
-        <input matInput placeholder="username" type="text" formControlName="username">
+		      
+	   <input matInput placeholder="Username" type="text" formControlName="username">
+	   <mat-icon matSuffix svgIcon="user"></mat-icon>
       </mat-form-field>
   
   
@@ -14,15 +47,80 @@
       </mat-form-field>
   
       <br/>
-      <table>
-        <tr>
-          <td align="center">
-            <button class="submit-btn" mat-button type="submit" [disabled]="!loginForm.valid" cdkFocusInitial>login</button>
-            <button mat-button (click)="onNoClick()" type="button">Cancel</button>
-            <nav> <a mat-raised-button (click)="openRegistrationDialog()">SignUp!</a></nav>
-          </td>
-        </tr>
-      </table>
+      
+		  <button class="submit-btn btn btn-block btn-warning btn-lg font-weight-medium" type="submit" [disabled]="!loginForm.valid" >Login</button>
+		 <!--  <button mat-flat-button color="warn">Warn</button>
+            <button class="submit-btn" mat-button type="submit" [disabled]="!loginForm.valid" cdkFocusInitial>login</button> -->
+           <!--  <button mat-button (click)="onNoClick()" type="button">Cancel</button> -->
+			  <a class="mat-button auth-link text-white">Forgot password?</a> <br/>   
+<a class="mat-button text-white" (click)="openRegistrationDialog()">SignUp!</a>
+        
     </form>
-  
   </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<!-- <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+      <div class="row">
+        <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-full-bg">
+          <div class="row w-100">
+            <div class="col-lg-4 mx-auto">
+			 
+              <div class="auth-form-dark text-left p-5">
+                <h2>Login</h2>
+                <h4 class="font-weight-light">Hello! let's get started</h4>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" class="pt-5">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                  
+					<mat-form-field class="full-width">
+        <input matInput placeholder="username" type="email" class="form-control" formControlName="username">
+      </mat-form-field>
+	  <mat-icon matSuffix>mode_user</mat-icon>
+	  
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+
+					 <mat-form-field>
+        <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+                  </div>
+                  <div class="mt-5">
+                    <button class="submit-btn" mat-button type="submit" [disabled]="!loginForm.valid" cdkFocusInitial>Login</button>
+					
+                  </div>
+                  <div class="mt-3 text-center">
+                    <a href="#" class="auth-link text-white">Forgot password?</a>
+                  </div>                 
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+     
+    </div>
+   
+  </div> -->
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/hoverable-collapse.js"></script>
+  <script src="../../js/misc.js"></script>
+  <script src="../../js/settings.js"></script>
+  <script src="../../js/todolist.js"></script>
+  <!-- endinject -->
+</body>
